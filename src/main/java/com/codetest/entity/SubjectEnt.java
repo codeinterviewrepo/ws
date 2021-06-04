@@ -2,11 +2,16 @@ package com.codetest.entity;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,7 +20,7 @@ import static com.codetest.entity.SubjectEnt.TABLE_NAME;
 
 @Entity
 @Table(name=TABLE_NAME)
-@NamedQuery(name = FIND_ALL_SUBJECTS, query = "select s from subjectEnt")
+@NamedQuery(name = FIND_ALL_SUBJECTS, query = "select s from SubjectEnt s")
 public class SubjectEnt {
 	
 	public static final String TABLE_NAME = "SUBJECTS";
@@ -37,26 +42,24 @@ public class SubjectEnt {
 	private Date weekEndDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="")
+	@Column(name="EXACT_CLASS_DATE")
 	private Date exactClassDate;
 	
 	@Column(name="DAY_OF_WEEK")
 	private String dateOfWeek;
 	
 	@Column(name="ROOM_NUMBER")
-	private float roomNumber;
+	private Double roomNumber;
 	
 	@Column(name="ROOM")
-	private float room;
+	private Double room;
 	
 	@Column(name="GPS_COORDINATES")
 	private String gpsCoordinates;
 	
-	@Temporal(TemporalType.TIME)
 	@Column(name="START_TIME")
 	private Time startTime;
 	
-	@Temporal(TemporalType.TIME)
 	@Column(name="END_TIME")
 	private Time endTime;
 	
@@ -64,16 +67,20 @@ public class SubjectEnt {
 	private String campusCode;
 	
 	@Column(name="HAS_STANDARD_ROOM_DESC")
-	private boolean hasStandardRoomDescription;
+	private Boolean hasStandardRoomDescription;
 	
 	@Column(name="DURATION")
-	private short duration;
+	private Short duration;
 	
 	@Column(name="DURATION_CODE")
 	private Character durationCode;
 	
 	@Column(name="IS_HOLIDAY")
-	private boolean isHoliday;
+	private Boolean isHoliday;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="SUBJECT_ID")
+	private List<EnrolmentEnt> enrolments;
 	
 	public String getSubjectCode() {
 		return subjectCode;
@@ -123,19 +130,19 @@ public class SubjectEnt {
 		this.dateOfWeek = dateOfWeek;
 	}
 	
-	public float getRoomNumber() {
+	public Double getRoomNumber() {
 		return roomNumber;
 	}
 	
-	public void setRoomNumber(float roomNumber) {
+	public void setRoomNumber(Double roomNumber) {
 		this.roomNumber = roomNumber;
 	}
 	
-	public float getRoom() {
+	public Double getRoom() {
 		return room;
 	}
 	
-	public void setRoom(float room) {
+	public void setRoom(Double room) {
 		this.room = room;
 	}
 	
@@ -171,19 +178,19 @@ public class SubjectEnt {
 		this.campusCode = campusCode;
 	}
 	
-	public boolean getHasStandardRoomDescription() {
+	public Boolean getHasStandardRoomDescription() {
 		return hasStandardRoomDescription;
 	}
 	
-	public void setHasStandardRoomDescription(boolean hasStandardRoomDescription) {
+	public void setHasStandardRoomDescription(Boolean hasStandardRoomDescription) {
 		this.hasStandardRoomDescription = hasStandardRoomDescription;
 	}
 	
-	public short getDuration() {
+	public Short getDuration() {
 		return duration;
 	}
 	
-	public void setDuration(short duration) {
+	public void setDuration(Short duration) {
 		this.duration = duration;
 	}
 	
@@ -195,7 +202,7 @@ public class SubjectEnt {
 		this.durationCode = durationCode;
 	}
 	
-	public boolean isHoliday() {
+	public Boolean isHoliday() {
 		return isHoliday;
 	}
 	

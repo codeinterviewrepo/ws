@@ -22,7 +22,6 @@ public class SpringJdbcConfig {
     @Bean
     public DataSource mysqlDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("DBDRIVER"));
         dataSource.setUrl(env.getProperty("DBURL"));
         dataSource.setUsername(env.getProperty("DBUSER"));
         dataSource.setPassword(env.getProperty("DBPASSWORD"));

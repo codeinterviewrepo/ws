@@ -10,5 +10,7 @@ public interface StudentSubjectService {
 	public List<Subject> getAllSubjects();
 	
 	public List<Student> getAllStudentsForSubject(String subjectId);
+	
+	public void ingest(Student student);
 
 }

@@ -1,28 +1,63 @@
 package com.codetest.model;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Date;
 
 import com.codetest.entity.SubjectEnt;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Subject {
-
+	
+	@JsonProperty("subject_code")
 	private String subjectCode;
+	
+	@JsonProperty("subject_desc")
 	private String subjectDesc;
+	
+	@JsonProperty("week_start_date")
 	private Date weekStartDate;
+	
+	@JsonProperty("week_end_date")
 	private Date weekEndDate;
+	
+	@JsonProperty("exact_class_date")
 	private Date exactClassDate;
+	
+	@JsonProperty("day_of_week")
 	private String dateOfWeek;
-	private float roomNumber;
-	private float room;
+	
+	@JsonProperty("room_number")
+	private Double roomNumber;
+	
+	@JsonProperty("room")
+	private Double room;
+	
+	@JsonProperty("gps_coordinates")
 	private String gpsCoordinates;
-	private Time startTime;
-	private Time endTime;
+	
+	@JsonProperty("start_time")
+	private String startTime;
+	
+	@JsonProperty("end_time")
+	private String endTime;
+	
+	@JsonProperty("campus_code")
 	private String campusCode;
-	private boolean hasStandardRoomDescription;
-	private short duration;
+	
+	@JsonProperty("hasStandardRoomDescription")
+	private Boolean hasStandardRoomDescription;
+	
+	@JsonProperty("duration")
+	private Short duration;
+	
+	@JsonProperty("duration_code")
 	private Character durationCode;
-	private boolean isHoliday;
+	
+	@JsonProperty("isHoliday")
+	private Boolean isHoliday;
 	
 	public String getSubjectCode() {
 		return subjectCode;
@@ -72,19 +107,19 @@ public class Subject {
 		this.dateOfWeek = dateOfWeek;
 	}
 	
-	public float getRoomNumber() {
+	public Double getRoomNumber() {
 		return roomNumber;
 	}
 	
-	public void setRoomNumber(float roomNumber) {
+	public void setRoomNumber(Double roomNumber) {
 		this.roomNumber = roomNumber;
 	}
 	
-	public float getRoom() {
+	public Double getRoom() {
 		return room;
 	}
 	
-	public void setRoom(float room) {
+	public void setRoom(Double room) {
 		this.room = room;
 	}
 	
@@ -96,19 +131,19 @@ public class Subject {
 		this.gpsCoordinates = gpsCoordinates;
 	}
 	
-	public Time getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 	
-	public void setStartTime(Time startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 	
-	public Time getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 	
-	public void setEndTime(Time endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	
@@ -120,19 +155,19 @@ public class Subject {
 		this.campusCode = campusCode;
 	}
 	
-	public boolean isHasStandardRoomDescription() {
+	public Boolean isHasStandardRoomDescription() {
 		return hasStandardRoomDescription;
 	}
 	
-	public void setHasStandardRoomDescription(boolean hasStandardRoomDescription) {
+	public void setHasStandardRoomDescription(Boolean hasStandardRoomDescription) {
 		this.hasStandardRoomDescription = hasStandardRoomDescription;
 	}
 	
-	public short getDuration() {
+	public Short getDuration() {
 		return duration;
 	}
 	
-	public void setDuration(short duration) {
+	public void setDuration(Short duration) {
 		this.duration = duration;
 	}
 	
@@ -144,11 +179,11 @@ public class Subject {
 		this.durationCode = durationCode;
 	}
 	
-	public boolean isHoliday() {
+	public Boolean isHoliday() {
 		return isHoliday;
 	}
 	
-	public void setHoliday(boolean isHoliday) {
+	public void setHoliday(Boolean isHoliday) {
 		this.isHoliday = isHoliday;
 	}
 	
@@ -158,19 +193,44 @@ public class Subject {
 		s.setDateOfWeek(sEnt.getDateOfWeek());
 		s.setDuration(sEnt.getDuration());
 		s.setDurationCode(sEnt.getDurationCode());
-		s.setEndTime(sEnt.getEndTime());
+		s.setEndTime(sEnt.getEndTime().toString());
 		s.setExactClassDate(sEnt.getExactClassDate());
 		s.setGpsCoordinates(sEnt.getGpsCoordinates());
 		s.setHasStandardRoomDescription(sEnt.getHasStandardRoomDescription());
 		s.setHoliday(sEnt.isHoliday());
 		s.setRoom(sEnt.getRoom());
 		s.setRoomNumber(sEnt.getRoomNumber());
-		s.setStartTime(sEnt.getStartTime());
+		s.setStartTime(sEnt.getStartTime().toString());
 		s.setSubjectCode(sEnt.getSubjectCode());
 		s.setSubjectDesc(sEnt.getSubjectDesc());
 		s.setWeekEndDate(sEnt.getWeekEndDate());
 		s.setWeekStartDate(sEnt.getWeekStartDate());
 		return s;
+	}
+	
+	public SubjectEnt toSubjectEnt() {
+		SubjectEnt sEnt = new SubjectEnt();
+		this.mapFields(sEnt);
+		return sEnt;
+	}
+	
+	public void mapFields(SubjectEnt sEnt) {
+		sEnt.setCampusCode(this.campusCode);
+		sEnt.setDateOfWeek(this.dateOfWeek);
+		sEnt.setDuration(this.duration);
+		sEnt.setDurationCode(this.durationCode);
+		sEnt.setEndTime(Time.valueOf(LocalTime.parse(startTime)));
+		sEnt.setExactClassDate(exactClassDate);
+		sEnt.setGpsCoordinates(gpsCoordinates);
+		sEnt.setHasStandardRoomDescription(hasStandardRoomDescription);
+		sEnt.setHoliday(isHoliday);
+		sEnt.setRoom(room);
+		sEnt.setRoomNumber(roomNumber);
+		sEnt.setStartTime(Time.valueOf(LocalTime.parse(startTime)));
+		sEnt.setSubjectCode(subjectCode);
+		sEnt.setSubjectDesc(subjectDesc);
+		sEnt.setWeekEndDate(weekEndDate);
+		sEnt.setWeekStartDate(weekStartDate);
 	}
 	
 }
