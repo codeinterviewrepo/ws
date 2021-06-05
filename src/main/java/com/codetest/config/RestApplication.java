@@ -14,4 +14,6 @@ public class RestApplication extends org.springframework.boot.web.servlet.suppor
     {
         new RestApplication().configure(new SpringApplicationBuilder(RestApplication.class)).run(args);
     }
+    
 }
+
