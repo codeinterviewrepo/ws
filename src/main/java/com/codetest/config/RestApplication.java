@@ -16,4 +16,3 @@ public class RestApplication extends org.springframework.boot.web.servlet.suppor
     }
     
 }
-
