@@ -6,7 +6,7 @@ import com.codetest.model.User;
 
 public interface AuthService {
 	
-	public void register(User user) throws NoSuchAlgorithmException;
+	public User register(User user) throws NoSuchAlgorithmException;
 
 	User doAuth(User user) throws NoSuchAlgorithmException;
 

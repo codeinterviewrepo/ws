@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   currentUser : User;
+  loginFailure : boolean = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -42,12 +43,18 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-
+    this.loginFailure = false;
     this.loading = true;
      this.authenticationService.login(this.fval.email.value, this.fval.password.value)
         .subscribe(
             data => {
-              this.router.navigate(['/']);
+              this.loading = false;
+              if(data){
+                this.router.navigate(['/']);
+              }
+              else{
+                this.loginFailure = true; 
+              }
             },
             error => {
                 console.log(error);

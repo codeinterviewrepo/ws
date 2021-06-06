@@ -26,10 +26,10 @@ public class AuthRest {
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public User registerUser(@RequestBody User user) {
 		try {
-			authService.register(user);
+			user = authService.register(user);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			return user;
+			return null;
 		}
 		return user;
 	}

@@ -14,6 +14,9 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   currentUser : User;
+  alreadyExists : boolean = false;
+  successfulRegister : boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,16 +35,22 @@ export class RegisterComponent implements OnInit {
   get fval() { return this.registerForm.controls; }
 
   onFormSubmit(){
-    this.submitted = true;
+    this.alreadyExists = false;
     // return for here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid
+      ||this.successfulRegister) {
       return;
     }
     this.loading = true;
     this.authService.register(this.registerForm.value).subscribe(
       (data)=>{
-        alert('User Registered successfully!!');
-        this.router.navigate(['/login']);
+        this.loading = false;
+        if(data){
+          this.successfulRegister = true;
+        }
+        else{
+          this.alreadyExists = true;
+        }
      },
       (error)=>{
         console.log(error);

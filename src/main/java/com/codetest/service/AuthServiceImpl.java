@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.codetest.entity.UserEnt;
 import com.codetest.model.User;
@@ -16,11 +17,16 @@ public class AuthServiceImpl implements AuthService{
 	@Autowired EntityManager em;
 
 	@Override
-	public void register(User user) throws NoSuchAlgorithmException {
+	@Transactional
+	public User register(User user) throws NoSuchAlgorithmException {
 		UserEnt userEnt = em.find(UserEnt.class, user.getEmail());
-		if(userEnt==null) {
+		
+		if(userEnt==null) 
 			em.persist(user.toEnt());
-		}
+		else
+			user = null;
+		
+		return user;
 	}
 
 	@Override
