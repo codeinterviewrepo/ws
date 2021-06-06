@@ -26,12 +26,17 @@ export class AuthService {
             .pipe(map(user => {
                 if (user && user.token) {
                     // store user details in local storage to keep user logged in
+                    console.log(user.result);
                     localStorage.setItem('currentUser', JSON.stringify(user.result));
                     this.currentUserSubject.next(user);
                 }
-
+                console.log(user);
                 return user;
             }));
+    }
+
+    logout(){
+        localStorage.removeItem('currentUser');
     }
 
     register(user: User) {

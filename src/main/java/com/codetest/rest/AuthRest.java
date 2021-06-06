@@ -4,9 +4,11 @@ import java.security.NoSuchAlgorithmException;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +22,9 @@ public class AuthRest {
 	@Autowired
 	AuthService authService;
 	
-	@PostMapping(path="/register", produces = "application/json")
-	public User registerUser(User user) {
+	@PostMapping(path="/register", produces = MediaType.APPLICATION_JSON_VALUE, 
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public User registerUser(@RequestBody User user) {
 		try {
 			authService.register(user);
 		} catch (NoSuchAlgorithmException e) {
@@ -31,8 +34,9 @@ public class AuthRest {
 		return user;
 	}
 	
-	@PostMapping(path="/authenticate", produces = "application/json")
-	public User authenticate(User user) {
+	@PostMapping(path="/login", produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public User authen(@RequestBody User user) {
 		try {
 			return authService.doAuth(user);
 		} catch (NoSuchAlgorithmException e) {

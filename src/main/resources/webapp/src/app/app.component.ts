@@ -19,4 +19,16 @@ export class AppComponent {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
+  logout(){
+    this.authenticationService.logout();
+  }
+
+  login(){
+    this.router.navigate(['/login']);
+  }
+
+  register(){
+    this.router.navigate(['/register']);
+  }
+
 }

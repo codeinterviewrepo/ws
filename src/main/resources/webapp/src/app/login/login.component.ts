@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../service/auth.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  currentUser : User;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -26,6 +28,8 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
   }
 

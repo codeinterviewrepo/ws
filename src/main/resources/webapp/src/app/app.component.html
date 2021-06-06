@@ -1,7 +1,23 @@
 
 <!-- main app container -->
 <div class="jumbotron">
-  <a *ngIf="currentUser" class="nav-item nav-link" style="cursor:pointer" (click)="logout()">Logout</a>
+  <div class="row">
+    <h1>Enrolment Information Portal</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-2" *ngIf="currentUser">
+      <a class="nav-item nav-link" style="cursor:pointer" (click)="logout()">Logout</a>
+    </div>
+    <div class="col-sm-2" *ngIf="!currentUser">
+      <a class="nav-item nav-link" style="cursor:pointer" (click)="login()">Log In</a>
+    </div>
+    <div class="col-sm-2" *ngIf="!currentUser">
+      <a  class="nav-item nav-link" style="cursor:pointer" (click)="register()">Register</a>
+    </div>
+  </div>
+  
+  
+  
   <div class="container">
     <div class="row">
       <div class="col-md-4 offset-md-4">

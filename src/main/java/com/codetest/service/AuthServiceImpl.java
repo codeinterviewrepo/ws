@@ -18,7 +18,7 @@ public class AuthServiceImpl implements AuthService{
 	@Override
 	public void register(User user) throws NoSuchAlgorithmException {
 		UserEnt userEnt = em.find(UserEnt.class, user.getEmail());
-		if(userEnt!=null) {
+		if(userEnt==null) {
 			em.persist(user.toEnt());
 		}
 	}

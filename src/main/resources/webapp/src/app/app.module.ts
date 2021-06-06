@@ -12,13 +12,17 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './service/auth.service';
+import { LoggedInGuard } from './auth-guard/logged-in-guard';
+import { LoggedOutGuard } from './auth-guard/logged-out-guard';
+import { ListingComponent } from './listing/listing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ListingComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,7 @@ import { AuthService } from './service/auth.service';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot()
   ],
-  providers: [AuthService], //
+  providers: [AuthService, LoggedInGuard, LoggedOutGuard], //
   bootstrap: [AppComponent]
 })
 export class AppModule { }

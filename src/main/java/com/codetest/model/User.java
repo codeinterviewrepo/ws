@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
 	
-	@JsonProperty("suppliedPassword")
+	@JsonProperty("password")
 	private String suppliedPassword;
 	
 	@JsonProperty("email")
