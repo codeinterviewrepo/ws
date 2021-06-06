@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public currentUser;
   constructor(private router: Router,) {
+    console.log(localStorage.getItem('currentUser') ? true : false);
     this.currentUser = localStorage.getItem('currentUser')? JSON.parse(localStorage.getItem('currentUser')) : '';
    }
 

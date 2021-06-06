@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +33,11 @@ public class AuthServiceImpl implements AuthService{
 	@Override
 	public User doAuth(User user) throws NoSuchAlgorithmException {
 		UserEnt uEnt = em.find(UserEnt.class, user.getEmail());
-		return uEnt!=null&&user.getHashedPassword().equals(uEnt.getHashedPassword()) ?
-				user : null;
+		SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
+		User u = uEnt!=null&&sCryptPasswordEncoder
+				.matches(user.getSuppliedPassword(), uEnt.getHashedPassword()) 
+				? user : null;
+		return u;
 	}
 
 }

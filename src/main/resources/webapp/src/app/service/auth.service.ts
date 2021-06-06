@@ -24,19 +24,18 @@ export class AuthService {
     login(email: string, password: string) {
         return this.http.post<any>(this.url+`authrest/login`, { email, password })
             .pipe(map(user => {
-                if (user && user.token) {
+                if (user) {
                     // store user details in local storage to keep user logged in
-                    console.log(user.result);
-                    localStorage.setItem('currentUser', JSON.stringify(user.result));
+                    localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }
-                console.log(user);
                 return user;
             }));
     }
 
     logout(){
         localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
     }
 
     register(user: User) {
