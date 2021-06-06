@@ -10,8 +10,6 @@ export class AuthService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    private url : string = "http://localhost:8080/";
-
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -22,7 +20,7 @@ export class AuthService {
     }
 
     login(email: string, password: string) {
-        return this.http.post<any>(this.url+`authrest/login`, { email, password })
+        return this.http.post<any>(`authrest/login`, { email, password })
             .pipe(map(user => {
                 if (user) {
                     // store user details in local storage to keep user logged in
@@ -39,7 +37,7 @@ export class AuthService {
     }
 
     register(user: User) {
-        return this.http.post(this.url+`authrest/register`, user);
+        return this.http.post(`authrest/register`, user);
     }
 
 }

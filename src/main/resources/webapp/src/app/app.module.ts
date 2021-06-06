@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
-import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +13,7 @@ import { AuthService } from './service/auth.service';
 import { LoggedInGuard } from './auth-guard/logged-in-guard';
 import { LoggedOutGuard } from './auth-guard/logged-out-guard';
 import { ListingComponent } from './listing/listing.component';
+import { EnrolmentService } from './service/enrolment.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +29,8 @@ import { ListingComponent } from './listing/listing.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot()
   ],
-  providers: [AuthService, LoggedInGuard, LoggedOutGuard], //
+  providers: [AuthService, LoggedInGuard, LoggedOutGuard, EnrolmentService], //
   bootstrap: [AppComponent]
 })
 export class AppModule { }

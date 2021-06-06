@@ -1,1 +1,37 @@
-<p>listing works!</p>
+<div *ngIf="dataLoaded">
+    <h2>Subjects</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Description</th>
+          <th scope="col">Room Number</th>
+          <th scope="col">Weekday</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let subject of subjects">
+          <th scope="row"><a [routerLink]="" (click)="openModal(subject)">{{subject.subject_code}}</a></th>
+          <td>{{subject.subject_desc}}</td>
+          <td>{{subject.room_number}}</td>
+          <td>{{subject.day_of_week}}</td>
+          <td>{{subject.week_start_date}}</td>
+          <td>{{subject.week_end_date}}</td>
+        </tr>
+        </tbody>
+      </table>
+</div>
+ 
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
